@@ -54,9 +54,7 @@ spec:
           image: {{ .Values.connect.api.imageRepository }}:{{ tpl .Values.connect.version . }}
           imagePullPolicy: {{ .Values.connect.imagePullPolicy }}
           securityContext:
-            runAsUser: 999
-            runAsGroup: 999
-            allowPrivilegeEscalation: false
+            {{- toYaml .Values.podSecurityContext | nindent 12 }}
           resources:
             {{- toYaml .Values.connect.api.resources | nindent 12 }}
           env:
@@ -109,9 +107,7 @@ spec:
           image: {{ .Values.connect.sync.imageRepository }}:{{ tpl .Values.connect.version . }}
           imagePullPolicy: {{ .Values.connect.imagePullPolicy }}
           securityContext:
-            runAsUser: 999
-            runAsGroup: 999
-            allowPrivilegeEscalation: false
+            {{- toYaml .Values.podSecurityContext | nindent 12 }}
           resources:
             {{- toYaml .Values.connect.sync.resources | nindent 12 }}
           env:
