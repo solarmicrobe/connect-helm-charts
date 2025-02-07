@@ -3,6 +3,25 @@ entries:
   connect:
   - apiVersion: v2
     appVersion: 1.7.3
+    created: "2025-02-07T16:55:59.76040868Z"
+    description: A Helm chart for deploying 1Password Connect and the 1Password Connect
+      Kubernetes Operator
+    digest: f6c050435bbc4ae390f8ed9c6fe184fe387632f56cbbd269b4e949ae9ee8f8c8
+    home: https://1password.com/secrets/
+    icon: https://avatars.githubusercontent.com/u/38230737
+    keywords:
+    - 1Password
+    - 1Password Connect
+    - 1Password Operator
+    maintainers:
+    - email: support+business@1password.com
+      name: 1Password Secrets Integrations Team
+    name: connect
+    urls:
+    - https://github.com/solarmicrobe/connect-helm-charts/releases/download/connect-1.17.1-alpha/connect-1.17.1-alpha.tgz
+    version: 1.17.1-alpha
+  - apiVersion: v2
+    appVersion: 1.7.3
     created: "2024-08-06T22:03:59.967118394Z"
     description: A Helm chart for deploying 1Password Connect and the 1Password Connect
       Kubernetes Operator
@@ -289,6 +308,25 @@ entries:
   secrets-injector:
   - apiVersion: v2
     appVersion: 1.0.2
+    created: "2025-02-07T16:55:59.942191547Z"
+    description: A Helm chart for deploying 1Password Secrets Injector
+    digest: c0a1a565a7384703b7ad4a841a4d6dfe9f9fde008b09b0a897a938ea631871f4
+    home: https://1password.com/secrets/
+    icon: https://avatars.githubusercontent.com/u/38230737
+    keywords:
+    - 1Password
+    - 1Password Secrets Injector
+    - Secrets Injector
+    maintainers:
+    - email: support+business@1password.com
+      name: 1Password Secrets Integrations Team
+    name: secrets-injector
+    type: application
+    urls:
+    - https://github.com/solarmicrobe/connect-helm-charts/releases/download/secrets-injector-1.1.0/secrets-injector-1.1.0.tgz
+    version: 1.1.0
+  - apiVersion: v2
+    appVersion: 1.0.2
     created: "2023-10-16T05:24:43.220522765Z"
     description: A Helm chart for deploying 1Password Secrets Injector
     digest: 0d4be2e4023272ff5d23ff584e7fc578f6e6dafc33287e3622cfd606640c8ddc
@@ -325,4 +363,4 @@ entries:
     urls:
     - https://github.com/solarmicrobe/connect-helm-charts/releases/download/secrets-injector-1.0.0/secrets-injector-1.0.0.tgz
     version: 1.0.0
-generated: "2024-08-06T22:03:59.967240922Z"
+generated: "2025-02-07T16:55:59.942372198Z"
