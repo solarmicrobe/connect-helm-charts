@@ -160,6 +160,17 @@ connect:
   # Additional labels to be added to the Connect API pods.
   podLabels: {}
 
+  # Pod security context
+  # Sane default for most kubernetes installation
+  # Openshift should remove runAsUser runAsGroup
+  podSecurityContext:
+    runAsUser: 65532
+    runAsGroup: 65532
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+        - all
+
   # List of tolerations to be added to the Connect API pods.
   tolerations: []
 
@@ -314,6 +325,17 @@ operator:
 
   # priorityClassName to apply to the Operator pods.
   priorityClassName: ''
+
+  # Pod security context
+  # Sane default for most kubernetes installation
+  # Openshift should remove runAsUser runAsGroup
+  podSecurityContext:
+    runAsUser: 999
+    runAsGroup: 999
+    allowPrivilegeEscalation: false
+    capabilities:
+      drop:
+        - all
 
   # List of tolerations to be added to the Operator pods.
   tolerations: []
