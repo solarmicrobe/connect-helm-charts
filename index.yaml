@@ -3,10 +3,29 @@ entries:
   connect:
   - apiVersion: v2
     appVersion: 1.7.3
-    created: "2025-02-07T20:48:43.14944401Z"
+    created: "2025-04-24T22:02:20.073872928Z"
     description: A Helm chart for deploying 1Password Connect and the 1Password Connect
       Kubernetes Operator
-    digest: 9c4e401f11d47131e664e7e6757252d4a8f33e32bb7a3ac14df14a38e3ed64d5
+    digest: 6cc9b0b232448a08d71bf3e243e3d05713ae837377809c18a5f92ec4bd6e3529
+    home: https://1password.com/secrets/
+    icon: https://avatars.githubusercontent.com/u/38230737
+    keywords:
+    - 1Password
+    - 1Password Connect
+    - 1Password Operator
+    maintainers:
+    - email: support+business@1password.com
+      name: 1Password Secrets Integrations Team
+    name: connect
+    urls:
+    - https://github.com/solarmicrobe/connect-helm-charts/releases/download/connect-1.17.1-alpha.1/connect-1.17.1-alpha.1.tgz
+    version: 1.17.1-alpha.1
+  - apiVersion: v2
+    appVersion: 1.7.3
+    created: "2025-02-07T16:55:59.76040868Z"
+    description: A Helm chart for deploying 1Password Connect and the 1Password Connect
+      Kubernetes Operator
+    digest: f6c050435bbc4ae390f8ed9c6fe184fe387632f56cbbd269b4e949ae9ee8f8c8
     home: https://1password.com/secrets/
     icon: https://avatars.githubusercontent.com/u/38230737
     keywords:
@@ -22,10 +41,10 @@ entries:
     version: 1.17.1-alpha
   - apiVersion: v2
     appVersion: 1.7.3
-    created: "2025-02-07T16:55:59.76040868Z"
+    created: "2025-02-07T20:48:43.14944401Z"
     description: A Helm chart for deploying 1Password Connect and the 1Password Connect
       Kubernetes Operator
-    digest: f6c050435bbc4ae390f8ed9c6fe184fe387632f56cbbd269b4e949ae9ee8f8c8
+    digest: 9c4e401f11d47131e664e7e6757252d4a8f33e32bb7a3ac14df14a38e3ed64d5
     home: https://1password.com/secrets/
     icon: https://avatars.githubusercontent.com/u/38230737
     keywords:
@@ -382,4 +401,4 @@ entries:
     urls:
     - https://github.com/solarmicrobe/connect-helm-charts/releases/download/secrets-injector-1.0.0/secrets-injector-1.0.0.tgz
     version: 1.0.0
-generated: "2025-02-07T20:48:43.308735349Z"
+generated: "2025-04-24T22:02:20.225330073Z"
