@@ -149,27 +149,6 @@ spec:
             - name: tls-cert
               mountPath: /home/opuser/.op/certs
             {{- end }}
-        - resources: {}
-          terminationMessagePath: /dev/termination-log
-          name: debug
-          command:
-            - /bin/sh
-            - '-c'
-          imagePullPolicy: IfNotPresent
-          volumeMounts:
-            - mountPath: {{ .Values.connect.api.dataHome }}
-              name: {{ .Values.connect.dataVolume.name }}
-            {{- if .Values.connect.tls.enabled }}
-            - name: tls-cert
-              mountPath: /home/opuser/.op/certs
-            {{- end }}
-          terminationMessagePolicy: File
-          image: 'alpine:3.12'
-          args:
-            - |-
-              env
-              echo "#####" && echo "ls -l /home" && ls -l /home 
-              echo "#####" && echo "ls -al /home/opuser" && ls -alR /home/opuser
         - name: connect-sync
           image: {{ .Values.connect.sync.imageRepository }}:{{ tpl .Values.connect.version . }}
           imagePullPolicy: {{ .Values.connect.imagePullPolicy }}
