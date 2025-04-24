@@ -60,14 +60,28 @@ spec:
       initContainers:
         - name: sqlite-permissions
           image: alpine:3.12
+          resources: {}
+          terminationMessagePath: /dev/termination-log
           command:
             - "/bin/sh"
             - "-c"
           args:
-            - "mkdir -p /home/opuser/.op/data && chown -R 999 /home/opuser && chmod -R 700 /home/opuser && chmod -f -R 600 /home/opuser/.op/config || :"
+            - |-
+              env
+              whoami
+              rm -rf {{ .Values.connect.api.dataHome }}/*
+              echo "#####" && echo "Creating directory {{ .Values.connect.api.dataHome }}/.op/data"
+              mkdir -p {{ .Values.connect.api.dataHome }}/config/op && chmod 700 {{ .Values.connect.api.dataHome }}/config/op && chmod -R 700 {{ .Values.connect.api.dataHome }}/config/op || :
+              echo "#####" && echo "ls -lR {{ .Values.connect.api.dataHome }}" && ls -lR {{ .Values.connect.api.dataHome }} 
+          imagePullPolicy: {{ .Values.connect.imagePullPolicy }}
           volumeMounts:
-            - mountPath: /home/opuser/.op/data
-              name: shared-data
+            - mountPath: {{ .Values.connect.api.dataHome }}
+              name: {{ .Values.connect.dataVolume.name }}
+            {{- if .Values.connect.tls.enabled }}
+            - name: tls-cert
+              mountPath: /home/opuser/.op/certs
+            {{- end }}
+          terminationMessagePolicy: File
       containers:
         - name: {{ .Values.connect.api.name }}
           image: {{ .Values.connect.api.imageRepository }}:{{ tpl .Values.connect.version . }}
@@ -78,7 +92,11 @@ spec:
             {{- toYaml .Values.connect.api.resources | nindent 12 }}
           env:
             - name: XDG_DATA_HOME
-              value: {{ .Values.connect.api.dataHome }}
+              value: {{ .Values.connect.api.dataHome }}/data
+            - name: XDG_CONFIG_HOME
+              value: {{ .Values.connect.api.dataHome }}/config
+            - name: XDG_STATE_HOME
+              value: {{ .Values.connect.api.dataHome }}/state
             - name: OP_SESSION
               valueFrom:
                 secretKeyRef:
@@ -125,16 +143,33 @@ spec:
             initialDelaySeconds: 15
           {{ end }}
           volumeMounts:
-            - mountPath: /home/opuser/.op/data
+            - mountPath: {{ .Values.connect.api.dataHome }}
               name: {{ .Values.connect.dataVolume.name }}
             {{- if .Values.connect.tls.enabled }}
             - name: tls-cert
               mountPath: /home/opuser/.op/certs
             {{- end }}
-          command: ["/bin/connect-api"]
-          args: 
-            -- --config
-            -- /home/opuser/.op/data
+        - resources: {}
+          terminationMessagePath: /dev/termination-log
+          name: debug
+          command:
+            - /bin/sh
+            - '-c'
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - mountPath: {{ .Values.connect.api.dataHome }}
+              name: {{ .Values.connect.dataVolume.name }}
+            {{- if .Values.connect.tls.enabled }}
+            - name: tls-cert
+              mountPath: /home/opuser/.op/certs
+            {{- end }}
+          terminationMessagePolicy: File
+          image: 'alpine:3.12'
+          args:
+            - |-
+              env
+              echo "#####" && echo "ls -l /home" && ls -l /home 
+              echo "#####" && echo "ls -al /home/opuser" && ls -alR /home/opuser
         - name: connect-sync
           image: {{ .Values.connect.sync.imageRepository }}:{{ tpl .Values.connect.version . }}
           imagePullPolicy: {{ .Values.connect.imagePullPolicy }}
@@ -144,7 +179,11 @@ spec:
             {{- toYaml .Values.connect.sync.resources | nindent 12 }}
           env:
             - name: XDG_DATA_HOME
-              value: {{ .Values.connect.api.dataHome }}
+              value: {{ .Values.connect.api.dataHome }}/data
+            - name: XDG_CONFIG_HOME
+              value: {{ .Values.connect.api.dataHome }}/config
+            - name: XDG_STATE_HOME
+              value: {{ .Values.connect.api.dataHome }}/state
             - name: OP_HTTP_PORT
               value: "{{ .Values.connect.sync.httpPort }}"
             - name: OP_SESSION
@@ -177,7 +216,7 @@ spec:
             initialDelaySeconds: 15
           {{ end }}
           volumeMounts:
-            - mountPath: /home/opuser/.op/data
+            - mountPath: {{ .Values.connect.api.dataHome }}
               name: {{ .Values.connect.dataVolume.name }}
         {{- if .Values.connect.profiler.enabled }}
         - name: profiler-data

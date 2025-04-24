@@ -23,6 +23,7 @@ connect:
         memory: 128Mi
       requests:
         cpu: 0.2
+    dataHome: /opconnect
     httpPort: 8080
     httpsPort: 8443
     logLevel: info
@@ -51,6 +52,7 @@ connect:
     name: connect-sync
     imageRepository: 1password/connect-sync
     resources: {}
+    dataHome: /opconnect
     httpPort: 8081
     logLevel: info
 
@@ -164,8 +166,8 @@ connect:
   # Sane default for most kubernetes installation
   # Openshift should remove runAsUser runAsGroup
   podSecurityContext:
-    runAsUser: 65532
-    runAsGroup: 65532
+    runAsUser: 999
+    runAsGroup: 999
     allowPrivilegeEscalation: false
     capabilities:
       drop:
@@ -330,8 +332,8 @@ operator:
   # Sane default for most kubernetes installation
   # Openshift should remove runAsUser runAsGroup
   podSecurityContext:
-    runAsUser: 999
-    runAsGroup: 999
+    runAsUser: 65532
+    runAsGroup: 65532
     allowPrivilegeEscalation: false
     capabilities:
       drop:
